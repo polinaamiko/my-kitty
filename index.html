@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 Приглашение от котика на кино 🎬</title>
+    <!-- Подключаем красивый шрифт -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fbe9e7 0%, #ffccbc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Quicksand', sans-serif;
+            padding: 20px;
+            margin: 0;
+            /* лёгкий звёздный фон */
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 245, 220, 0.6) 0%, transparent 25%),
+                              radial-gradient(circle at 90% 70%, rgba(255, 220, 200, 0.5) 0%, transparent 30%);
+        }
+
+        /* Основная карточка */
+        .invitation-card {
+            max-width: 620px;
+            width: 100%;
+            background: #fffaf5;
+            border-radius: 70px 70px 70px 70px;
+            box-shadow: 0 30px 40px rgba(180, 100, 80, 0.25),
+                        0 10px 20px rgba(0, 0, 0, 0.08),
+                        inset 0 -5px 0 #f5d6c6;
+            padding: 35px 35px 40px;
+            border: 2px solid #ffe2d4;
+            position: relative;
+            transition: transform 0.3s ease;
+            animation: float 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Декоративные ушки котика сверху */
+        .ears {
+            position: absolute;
+            top: -18px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            pointer-events: none;
+        }
+
+        .ear {
+            width: 70px;
+            height: 50px;
+            background: #f8d7c4;
+            border-radius: 80% 0 60% 0 / 100% 0 70% 0;
+            transform: rotate(-15deg);
+            box-shadow: -2px -2px 0 #ffb99a inset;
+            position: relative;
+        }
+
+        .ear.right {
+            border-radius: 0 80% 0 60% / 0 100% 0 70%;
+            transform: rotate(15deg);
+            box-shadow: 2px -2px 0 #ffb99a inset;
+        }
+
+        /* Внутренняя часть ушек */
+        .ear::after {
+            content: '';
+            position: absolute;
+            width: 38px;
+            height: 28px;
+            background: #ffb6a0;
+            border-radius: 70% 0 60% 0 / 100% 0 70% 0;
+            top: 8px;
+            left: 12px;
+            opacity: 0.7;
+        }
+
+        .ear.right::after {
+            border-radius: 0 70% 0 60% / 0 100% 0 70%;
+            left: 18px;
+        }
+
+        /* Мордочка котика */
+        .cat-face {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .cat-icon {
+            font-size: 80px;
+            line-height: 1;
+            filter: drop-shadow(0 8px 6px rgba(200, 120, 90, 0.2));
+            animation: subtleWiggle 3s infinite alternate;
+            transform-origin: center;
+            display: inline-block;
+        }
+
+        @keyframes subtleWiggle {
+            0% { transform: rotate(-3deg) scale(1); }
+            100% { transform: rotate(3deg) scale(1.02); }
+        }
+
+        /* Заголовок */
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #6b3e2e;
+            text-align: center;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 #fadbcb;
+            word-break: break-word;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #b16d55;
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Основной текст приглашения */
+        .invite-text {
+            background: #fff2ea;
+            padding: 22px 25px;
+            border-radius: 45px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #4d2e23;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px dashed #f0b9a0;
+            box-shadow: 0 8px 0 #f0cbbc;
+            line-height: 1.5;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .invite-text:hover {
+            background: #ffe9df;
+            box-shadow: 0 8px 0 #e6b8a4;
+        }
+
+        /* Детали фильма */
+        .movie-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px 25px;
+            margin: 25px 0 15px;
+        }
+
+        .detail-item {
+            background: #f5e1d6;
+            padding: 12px 22px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #5e3a2b;
+            box-shadow: 0 4px 0 #dbb7a4;
+            border: 1px solid #ffd9c9;
+            transition: all 0.15s ease;
+        }
+
+        .detail-item:hover {
+            transform: scale(1.02);
+            background: #ffebe2;
+            box-shadow: 0 5px 0 #cfab98;
+        }
+
+        .emoji-big {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+
+        /* Кнопка */
+        .button-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-answer {
+            background: #ffb39c;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 120px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #3e251c;
+            letter-spacing: 0.5px;
+            box-shadow: 0 9px 0 #b47358, 0 10px 20px rgba(160, 100, 70, 0.3);
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 2px solid #ffe8dd;
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-answer:active {
+            transform: translateY(5px);
+            box-shadow: 0 4px 0 #b47358, 0 8px 16px rgba(160, 100, 70, 0.3);
+        }
+
+        .btn-answer:hover {
+            background: #ffa58b;
+            transform: translateY(2px);
+            box-shadow: 0 7px 0 #a8654a, 0 10px 20px rgba(160, 100, 70, 0.3);
+        }
+
+        /* Маленькие декоративные лапки */
+        .paw-left, .paw-right {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.4;
+            bottom: 15px;
+        }
+
+        .paw-left {
+            left: 20px;
+            transform: rotate(-20deg);
+        }
+
+        .paw-right {
+            right: 20px;
+            transform: rotate(20deg);
+        }
+
+        /* Сердечки вокруг */
+        .heart-decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.5;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .heart1 { top: 20px; left: 30px; transform: rotate(-15deg); }
+        .heart2 { top: 60px; right: 25px; transform: rotate(10deg); animation-delay: 0.5s; }
+        .heart3 { bottom: 80px; left: 15px; transform: rotate(25deg); animation-delay: 0.2s; }
+        .heart4 { bottom: 120px; right: 20px; transform: rotate(-20deg); animation-delay: 0.8s; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.9) rotate(-10deg); }
+            100% { opacity: 0.7; transform: scale(1.2) rotate(5deg); }
+        }
+
+        /* Адаптив для телефонов */
+        @media (max-width: 550px) {
+            .invitation-card {
+                padding: 30px 20px 35px;
+                border-radius: 50px;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+            .cat-icon {
+                font-size: 65px;
+            }
+            .invite-text {
+                font-size: 1.1rem;
+                padding: 18px 15px;
+            }
+            .btn-answer {
+                font-size: 1.3rem;
+                padding: 15px 30px;
+            }
+            .detail-item {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+            .ears {
+                padding: 0 30px;
+            }
+            .ear {
+                width: 55px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <!-- Ушки котика -->
+        <div class="ears">
+            <div class="ear"></div>
+            <div class="ear right"></div>
+        </div>
+
+        <!-- Декоративные сердечки -->
+        <div class="heart-decoration heart1">💗</div>
+        <div class="heart-decoration heart2">💖</div>
+        <div class="heart-decoration heart3">💕</div>
+        <div class="heart-decoration heart4">💘</div>
+
+        <!-- Мордочка и заголовок -->
+        <div class="cat-face">
+            <div class="cat-icon">😺🐾</div>
+            <h1>Мяу, пойдём в кино?</h1>
+            <div class="subhead">
+                <span>🐱</span> маленький котик зовёт <span>🎬</span>
+            </div>
+        </div>
+
+        <!-- Текст приглашения -->
+        <div class="invite-text">
+            <span style="font-size:1.8rem; display:block; margin-bottom:6px;">✨🐾✨</span>
+            Я весь день мурлычу и не могу перестать думать<br> 
+            о тебе... Давай сходим в кино? <br>
+            <span style="font-weight:700;">Выбирай любой фильм, я угощаю попкорном!</span>
+        </div>
+
+        <!-- Детали: время, место, настроение -->
+        <div class="movie-details">
+            <div class="detail-item">
+                <span class="emoji-big">🎟️</span> 2 билета
+            </div>
+            <div class="detail-item">
+                <span class="emoji-big">🍿</span> попкорн
+            </div>
+            <div class="detail-item">
+                <span class="emoji-big">🌙</span> вечерний сеанс
+            </div>
+            <div class="detail-item">
+                <span class="emoji-big">🐾</span> лапки вместе
+            </div>
+        </div>
+
+        <!-- Кнопка-ответ -->
+        <div class="button-wrapper">
+            <button class="btn-answer" id="yesButton">
+                <span>😻</span> Да, я согласен! <span>🎬</span>
+            </button>
+        </div>
+
+        <!-- Маленькие лапки внизу -->
+        <div class="paw-left">🐾</div>
+        <div class="paw-right">🐾</div>
+    </div>
+
+    <script>
+        // Добавляем приятную реакцию на кнопку: при клике показываем милое сообщение и сердечки
+        const button = document.getElementById('yesButton');
+
+        button.addEventListener('click', function() {
+            // Меняем текст кнопки и добавляем эффект
+            this.innerHTML = '<span>🎉</span> Ура! Я самый счастливый кот! <span>💖</span>';
+            this.style.backgroundColor = '#ffc9b4';
+            this.style.boxShadow = '0 5px 0 #b47358, 0 8px 16px rgba(160, 100, 70, 0.3)';
+            this.style.transform = 'translateY(4px)';
+            
+            // Создаём всплывающие сердечки
+            for (let i = 0; i < 12; i++) {
+                createFloatingHeart();
+            }
+
+            // Небольшая задержка и возврат кнопки в исходное состояние (но с обновлённым текстом)
+            setTimeout(() => {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 9px 0 #b47358, 0 10px 20px rgba(160, 100, 70, 0.3)';
+            }, 150);
+        });
+
+        // Функция для создания парящих сердечек
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💖', '💘', '💕', '🐾', '😽', '✨'][Math.floor(Math.random() * 7)];
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '80%';
+            heart.style.fontSize = (Math.random() * 30 + 18) + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '9999';
+            heart.style.opacity = '0.9';
+            heart.style.transition = 'transform 1.2s ease-out, opacity 1s';
+            heart.style.transform = 'translateY(0) rotate(0deg)';
+            document.body.appendChild(heart);
+
+            // Анимация полёта вверх
+            requestAnimationFrame(() => {
+                heart.style.transform = `translateY(-${Math.random() * 250 + 150}px) rotate(${Math.random() * 40 - 20}deg)`;
+                heart.style.opacity = '0';
+            });
+
+            // Удаляем элемент после завершения анимации
+            setTimeout(() => {
+                heart.remove();
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
